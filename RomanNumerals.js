@@ -1,21 +1,20 @@
 class RomanNumerals {
   static get decimals() {
-    // the order is critical to the algorithm of fromRoman and toRoman
-    return [900, 1000, 400, 500, 90, 100, 40, 50, 9, 10, 4, 5, 1]
+    return [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]
   }
 
   static get romans() {
-    // the order is critical to the algorithm of fromRoman and toRoman
-    return ['CM','M', 'CD', 'D', 'XC', 'C', 'XL', 'L', 'IX', 'X', 'IV', 'V','I']
+    return ['M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V', 'IV', 'I']
   }
 
   static fromRoman(str = '') {
     let result = 0
     for (let i = 0; i < RomanNumerals.decimals.length && str !== ''; i++) {
-      const romanRegex = new RegExp(RomanNumerals.romans[i], 'g')
-      const count = (str.match(romanRegex) || []).length
-      result += count * RomanNumerals.decimals[i]
-      str = str.replace(romanRegex, '')
+      const roman = RomanNumerals.romans[i]
+      while (str.startsWith(roman)) {
+        result += RomanNumerals.decimals[i]
+        str = str.replace(roman, '')
+      }
     }
 
     return result
